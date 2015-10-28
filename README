@@ -1,0 +1,21 @@
+This is a small pseudo-IRC bridge that's used in a very hacky implementation
+of a website version of PINKSERV2.
+
+The basic architecture is this:
+	your computer makes a web request to the "api"
+	lighttpd forwards to a flask server run in a bash while loop
+	the python code runs a dummy IRC client connecting to localhost (this)
+	(this) the dummy IRC server on localhost bridges the gap to PINKSERV2
+	the python sends the equivalent of a PRIVMSG to PINKSERV2
+	PINKSERV2 is connected to the local IRC server (this) in the same way it
+		connects to any IRC server, so it sees the PRIVMSG
+	PINKSERV2 responds to the message
+	the local IRC server (this) sends the message back to the python code
+	the python code waits for the response and reads it (or aborts if it takes
+		too long, assuming no output was generated)
+	the response is converted into an image (because reasons) and output
+	the response is routed back up the server chain to your browser
+
+Hacks upon hacks. The good bit is that it was very quick to setup. The bad bit
+is literally every single other part.
+
