@@ -1,3 +1,3 @@
 server: server.cpp
-	g++ -std=c++11 server.cpp -o server -lsqlite3
+	g++ -std=c++11 server.cpp -o server
 
